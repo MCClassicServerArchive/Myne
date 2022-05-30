@@ -1,0 +1,57 @@
+[network]
+port: 25565
+controller_port: 50012
+
+[server]
+public: true
+duplicate_logins: false
+verify_names: true
+control_password: bingy
+max_clients: 32
+name: The Archives
+description: Experimental Multi-World Server
+greeting: Welcome! Type /help for information about use of this server,\nor /random to be taken to a random world.\nMore information is at http://archives.aeracode.org/
+physics_limit: 4
+info_url: http://archives.aeracode.org/
+
+[plugins]
+core:
+teleport:
+fetch:
+portals:
+blb:
+msgblocks:
+ops:
+writers:
+locate:
+kickban:
+overload:
+banish:
+fly:
+mute:
+#debug:
+tree:
+dynamite:
+roll:
+world:
+lock:
+private:
+adminblocks:
+archives:
+paint:
+physcontrol:
+build:
+admins:
+multiworld:
+players:
+home:
+messaging:
+hide:
+help:
+hill:
+
+#[email]
+#host = localhost
+#from = errors@localhost
+#to = test@example.com
+#subject = Minecraft Server Error
