@@ -235,7 +235,7 @@ class MyneServerProtocol(Protocol):
                     self.factory.usernames[self.username.lower()].duplicateKick()
                 self.factory.usernames[self.username.lower()] = self
                 # Right protocol?
-                if protocol != 6:
+                if protocol < 6:
                     self.sendError("Wrong protocol.")
                     break
                 # Send them back our info.
