@@ -208,6 +208,7 @@ class BlockStore(Thread):
         new_gz.close()
         self.queued_blocks = {}
         # Copy the new level over the old.
+        os.remove(self.blocks_path)
         os.rename(self.blocks_path + ".new", self.blocks_path)
     
     @classmethod
