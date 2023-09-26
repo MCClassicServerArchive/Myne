@@ -32,7 +32,16 @@ class Heartbeat(object):
     
     def get_url(self):
         try:
-            fh = urllib.urlopen("http://www.minecraft.net/heartbeat.jsp", urllib.urlencode({
+            fh = urllib.urlopen("https://www.classicube.net/heartbeat.jsp", urllib.urlencode({
+                "port": self.factory.config.getint("network", "port"),
+                "users": len(self.factory.clients),
+                "max": self.factory.max_clients,
+                "name": self.factory.server_name,
+                "public": self.factory.public,
+                "software": "Myne",
+                "salt": self.factory.salt,
+            }))
+            bh = urllib.urlopen("http://www.betacraft.uk/heartbeat.jsp", urllib.urlencode({
                 "port": self.factory.config.getint("network", "port"),
                 "users": len(self.factory.clients),
                 "max": self.factory.max_clients,
@@ -42,7 +51,7 @@ class Heartbeat(object):
                 "salt": self.factory.salt,
             }))
             self.url = fh.read().strip()
-            logging.log(logging.INFO, "Heartbeat sent. URL: %s" % self.url)
+            logging.log(logging.INFO, "Heartbeat sent. URL: %s \nBetacraft Control Panel: %s" % (self.url, bh.read().strip()))
         finally:
             reactor.callLater(45, self.get_url)
 
