@@ -220,11 +220,14 @@ class MyneServerProtocol(Protocol):
                 protocol, self.username, mppass, utype = parts
                 # Check their password
                 correct_pass = hashlib.md5(self.factory.salt + self.username).hexdigest()[-32:].strip("0")
+                classicube_pass = hashlib.md5(self.factory.classicubesalt + self.username).hexdigest()[-32:].strip("0")
                 mppass = mppass.strip("0")
-                if self.factory.verify_names and mppass != correct_pass:
+                if self.factory.verify_names and mppass != correct_pass and mppass != classicube_pass:
                     self.log("Kicked '%s'; invalid password (%s, %s)" % (self.username, mppass, correct_pass))
                     self.sendError("Incorrect authentication. (try again in 60s?)")
                     return
+                elif mppass == classicube_pass:
+                    self.username += self.factory.classicube_suffix
                 self.log("Connected, as '%s'" % self.username)
                 # Are they banned?
                 if self.factory.isBanned(self.username):

@@ -6,6 +6,7 @@ controller_port: 50012
 public: true
 duplicate_logins: false
 verify_names: true
+classicube_suffix: +
 control_password: bingy
 max_clients: 32
 name: The Archives

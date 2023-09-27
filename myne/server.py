@@ -1,3 +1,4 @@
+import random
 import urllib
 import time
 import logging
@@ -39,7 +40,11 @@ class Heartbeat(object):
                 "name": self.factory.server_name,
                 "public": self.factory.public,
                 "software": "Myne",
+<<<<<<< Updated upstream
                 "salt": self.factory.salt,
+=======
+                "salt": self.factory.classicubesalt,
+>>>>>>> Stashed changes
             }))
             bh = urllib.urlopen("http://www.betacraft.uk/heartbeat.jsp", urllib.urlencode({
                 "port": self.factory.config.getint("network", "port"),
@@ -75,6 +80,7 @@ class MyneFactory(Factory):
         self.public = self.config.getboolean("server", "public")
         self.duplicate_logins = self.config.getboolean("server", "duplicate_logins")
         self.verify_names = self.config.getboolean("server", "verify_names")
+        self.classicube_suffix = self.config.get("server", "classicube_suffix")
         self.control_password = self.config.get("server", "control_password")
         self.physics_limit = self.config.getint("server", "physics_limit")
         self.info_url = self.config.get("server", "info_url")
@@ -90,7 +96,7 @@ class MyneFactory(Factory):
         
         # Salt, for the heartbeat server/verify-names
         self.salt = "mysalt%s" % time.time()
-        
+        self.classicubesalt = "classicubesalt%s" % time.time()
         # Load up the plugins specified
         plugins = self.config.options("plugins")
         logging.log(logging.INFO, "Loading plugins...")
@@ -154,6 +160,7 @@ class MyneFactory(Factory):
             self.worlds['default'] = None
         
         # Read in the admins
+
         if config.has_section("admins"):
             for name in config.options("admins"):
                 self.admins.add(name)
